@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vücut Kitle Endeksi Bulma Aracı</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #calculator {
+            max-width: 300px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+
+        button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <h1>Vücut Kitle Endeksi Bulma Aracı</h1>
+        <hr>
+        <div class="form-group">
+            <label for="boy">Boyunuzu Giriniz(cm):</label>
+            <input type="number" class="form-control" id="boy" placeholder="Boy">
+        </div>
+        <div class="form-group">
+            <label for="kilo">Kilonuzu Giriniz(kg):</label>
+            <input type="number" class="form-control" id="kilo" placeholder="Kilo">
+        </div>
+        <button onclick="indeksGöster()" class="btn btn-primary">Hesapla</button>
+        <hr>
+        <div id="results">
+            <p id="vücutKitleE"></p>
+            <p id="tavsiye"></p>
+            <p id="acklma"></p>
+        </div>
+    </div>
+
+    <script>
+        function hesapla() {
+            var kilo = document.getElementById("kilo").value;
+            var boy = document.getElementById("boy").value / 100;
+            var deger = boy * boy;
+            var ind = kilo / deger;
+
+            document.getElementById("vücutKitleE").innerHTML = "Vücut Kitle Endeksi: " + ind.toFixed(1);
+            return ind;
+        }
+
+        function aciklama() {
+            var ind = hesapla();
+
+            if (ind < 18.5) 
+                document.getElementById("acklma").innerHTML = "Durumunuz: Zayıf";
+            else if (ind > 18.5 && ind < 24.9)
+                document.getElementById("acklma").innerHTML = "Durumunuz: Normal";
+            else if (ind > 25 && ind < 29.9)
+                document.getElementById("acklma").innerHTML = "Durumunuz: Şişman";
+            else 
+                document.getElementById("acklma").innerHTML = "Durumunuz: Obez";
+        }
+
+        function aralik() {
+            var boy = document.getElementById("boy").value / 100;
+            var d1 = 18.5 * boy * boy;
+            var d2 = 24.9 * boy * boy;
+
+            document.getElementById("tavsiye").innerHTML = 'Olması Gereken Kilo Aralığı: ' + d1.toFixed(1) + 'kg - ' + d2.toFixed(1) + 'kg';
+        }
+
+        function indeksGöster() {
+            aciklama();
+            aralik();
+        }
+    </script>
+
+    <!-- Bootstrap JS ve jQuery -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>
